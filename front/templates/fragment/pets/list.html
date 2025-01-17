@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Mascotas{% endblock %}
+
+{% block pets_nav_item %}active{% endblock %}
+
+{% block blank_main_content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Mascotas</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <a href="/pets/create" class="btn btn-primary btn-icon-split">
+              <span class="icon text-white-50">
+                  <i class="fas fa-plus"></i>
+              </span>
+              <span class="text">Agregar Registro</span>
+            </a>
+          </div><br><br>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+              aria-describedby="dataTable_info" style="width: 100%;">
+              <thead>
+                <tr role="row">
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Nombre</th>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Especie</th>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Nacimiento</th>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Tamaño</th>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Peso</th>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+                    Acciones</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th rowspan="1" colspan="1">Nombre</th>
+                  <th rowspan="1" colspan="1">Especie</th>
+                  <th rowspan="1" colspan="1">Nacimiento</th>
+                  <th rowspan="1" colspan="1">Tamaño</th>
+                  <th rowspan="1" colspan="1">Peso</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% for mascota in pets %}
+                <tr class="odd">
+                  <td class="sorting_1">{{ mascota.nombre }}</td>
+                  <td>{{ mascota.tipoMascota }}</td>
+                  <td>{{ mascota.fechaNacimiento }}</td>
+                  <td>{{ mascota.altura }}</td>
+                  <td>{{ mascota.peso }}</td>
+                  <td>
+                    <a href="/pet/edit/{{ mascota.id }}" class="btn btn-info btn-circle btn-sm">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="/pet/confirm/delete/{{ mascota.id }}" class="btn btn-danger btn-circle btn-sm">
+                      <i class="fas fa-trash"></i>
+                  </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

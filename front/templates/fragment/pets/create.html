@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Agregar Registro{% endblock %}
+
+{% block pets_nav_item %}active{% endblock %}
+
+{% block blank_main_content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{% block card_form_title %}Agregar Mascota{% endblock %}</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">   
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <form action="{% block card_form_action %}/pet/save/{% endblock %}" method="post">
+
+              {% block extra_forms %}
+                
+              {% endblock %}
+
+              <div class="form-group">
+                <input required type="text" {% block nombre_input %}{% endblock %} class="form-control form-control-user" name="nombre" placeholder="Nombre de la Mascota">
+              </div>
+
+              <div class="form-group">
+                <input required type="number" {% block peso_input %}{% endblock %} step="0.01" class="form-control form-control-user" name="peso"  placeholder="Peso en kilogramos">
+              </div>
+
+              <div class="form-group">
+                <input required type="number" {% block altura_input %}{% endblock %} step="0.01" class="form-control form-control-user" name="altura" placeholder="Altura en centímetros">
+              </div>
+
+              <div class="form-group">
+                <input required type="date" {% block fechaNacimiento_input %}{% endblock %} class="form-control form-control-user" name="fechaNacimiento" placeholder="Fecha de Nacimiento">
+              </div>
+
+              <div class="form-group">
+                <select class="form-control" name="tipoMascota" id="tipoMascota">
+                  {% for tipo in tipos %}
+                    <option value="{{ tipo }}" {% block tipoMascota_input %}{% endblock %}>{{ tipo }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <button type="submit" id="sub" hidden></button>
+
+              <a href="#" onclick="document.getElementById('sub').click()" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Guardar</span>
+              </a>
+
+              <a href="/pets" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-ban"></i>
+                </span>
+                <span class="text">Volver</span>
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

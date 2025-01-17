@@ -1,0 +1,21 @@
+{% extends 'fragment/vets/create.html' %}
+{% block title%}Actualizar Mascota{% endblock %}
+{% block vets_nav_item %}active{% endblock %}
+
+{% block card_form_title %}Actualizar Registro{% endblock %}
+
+{% block card_form_action %}/vet/update/{% endblock %}
+
+{% block extra_forms %}
+  <input type="number" name="id" id="id" value="{{vet.id}}" hidden>
+{% endblock %}
+
+{% block nombre_input %}value="{{vet.nombre}}"{% endblock %}
+
+{% block telefono_input %}value="{{vet.telefono}}"{% endblock %}
+
+{% block direccion_input %}value="{{vet.direccion}}"{% endblock %}
+
+{% block correo_input %}value="{{vet.correo}}"{% endblock %}
+
+

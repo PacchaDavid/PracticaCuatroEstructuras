@@ -1,0 +1,25 @@
+{% extends 'fragment/pets/create.html' %}
+{% block title%}Actualizar Mascota{% endblock %}
+{% block pets_nav_item %}active{% endblock %}
+
+{% block card_form_title %}Actualizar Registro{% endblock %}
+
+{% block card_form_action %}/pet/update/{% endblock %}
+
+{% block extra_forms %}
+  <input type="number" name="id" id="id" value="{{pet.id}}" hidden>
+{% endblock %}
+
+{% block nombre_input %}value="{{pet.nombre}}"{% endblock %}
+
+{% block peso_input %}value="{{pet.peso}}"{% endblock %}
+
+{% block altura_input %}value="{{pet.altura}}"{% endblock %}
+
+{% block fechaNacimiento_input %}value="{{pet.fechaNacimiento}}"{% endblock %}
+
+{% block tipoMascota_input %}
+    {% if tipo == pet.tipoMascota %}
+      selected
+    {% endif %}
+{% endblock %}

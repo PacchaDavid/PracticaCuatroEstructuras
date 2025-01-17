@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Agregar Registro{% endblock %}
+
+{% block vets_nav_item %}active{% endblock %}
+
+{% block blank_main_content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{% block card_form_title %}Agregar Veterinaria{% endblock %}</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">   
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <form action="{% block card_form_action %}/vet/save/{% endblock %}" method="post">
+
+              {% block extra_forms %}
+                
+              {% endblock %}
+
+              <div class="form-group">
+                <input required type="text" {% block nombre_input %}{% endblock %} class="form-control form-control-user" name="nombre" placeholder="Nombre de la Veterinaria">
+              </div>
+
+              <div class="form-group">
+                <input required type="text" {% block telefono_input %}{% endblock %} class="form-control form-control-user" name="telefono"  placeholder="Teléfono de la Veterinaria">
+              </div>
+
+              <div class="form-group">
+                <input required type="text" {% block direccion_input %}{% endblock %} class="form-control form-control-user" name="direccion" placeholder="Dirección de la Veterinaria">  
+              </div>
+
+              <div class="form-group">
+                <input required type="email" {% block correo_input %}{% endblock %} class="form-control form-control-user" name="correo" placeholder="Correo Electrónico de la Veterinaria">  
+              </div>
+
+              <button type="submit" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Guardar</span>
+              </button>
+
+              <a href="/vets" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-ban"></i>
+                </span>
+                <span class="text">Volver</span>
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

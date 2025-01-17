@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Registro{% endblock %}
+
+{% block pets_nav_item %}active{% endblock %}
+
+{% block blank_main_content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Eliminar Permanentemente</h6>
+  </div>
+  <div class="card-body">
+      La información de la mascota será eliminada permanentemente. ¿Está seguro de que desea continuar?
+      <br><br>
+      <form action="/pet/delete/{{ id }}" method="post">
+        <input type="hidden" name="id" value="{{ id }}">
+        <a href="/pets" class="btn btn-danger btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-ban"></i>
+          </span>
+          <span class="text">Cancelar</span>
+        </a>
+        <button type="submit" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-check"></i>
+          </span>
+          <span class="text">Eliminar</span>
+        </button>
+      </form>
+  </div>
+</div>
+{% endblock%}
