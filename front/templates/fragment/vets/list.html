@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Veterinarias{% endblock %}
-
+{% block custom_styles_js %}
+<link href="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block vets_nav_item %}active{% endblock %}
 
 {% block blank_main_content %}
@@ -9,73 +11,75 @@
     <h6 class="m-0 font-weight-bold text-primary">Veterinarias</h6>
   </div>
   <div class="card-body">
+
+    <div class="col-sm-12 col-md-6">
+      <a href="/vets/create" class="btn btn-primary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Agregar Registro</span>
+      </a>
+    </div><br>
+
     <div class="table-responsive">
-      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <a href="/vets/create" class="btn btn-primary btn-icon-split">
-              <span class="icon text-white-50">
-                  <i class="fas fa-plus"></i>
-              </span>
-              <span class="text">Agregar Registro</span>
-            </a>
-          </div><br><br>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
-              aria-describedby="dataTable_info" style="width: 100%;">
-              <thead>
-                <tr role="row">
-                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
-                    Nombre</th>
-                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
-                    Teléfono</th>
-                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
-                    Dirección</th>
-                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
-                    Correo Electrónico</th>
-                  <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
-                    Acciones</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <th rowspan="1" colspan="1">Nombre</th>
-                  <th rowspan="1" colspan="1">Teléfono</th>
-                  <th rowspan="1" colspan="1">Dirección</th>
-                  <th rowspan="1" colspan="1">Correo</th>
-                  <th></th>
-                </tr>
-              </tfoot>
-              <tbody>
-                {% for veterinaria in vets %}
-                <tr class="odd">
-                  <td class="sorting_1">{{ veterinaria.nombre }}</td>
-                  <td>{{ veterinaria.telefono }}</td>
-                  <td>{{ veterinaria.direccion }}</td>
-                  <td>{{ veterinaria.correo }}</td>
-                  <td>
-                    <a href="/vet/edit/{{ veterinaria.id }}" class="btn btn-info btn-circle btn-sm">
-                      <i class="fas fa-pen"></i>
-                    </a>
-                    <a href="/vet/confirm/delete/{{ veterinaria.id }}" class="btn btn-danger btn-circle btn-sm">
-                      <i class="fas fa-trash"></i>
-                  </a>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+        aria-describedby="dataTable_info" style="width: 100%;">
+        <thead>
+          <tr role="row">
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+              aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+              Nombre</th>
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+              aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+              Teléfono</th>
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+              aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+              Dirección</th>
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+              aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+              Correo Electrónico</th>
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+              aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 57px;">
+              Acciones</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th rowspan="1" colspan="1">Nombre</th>
+            <th rowspan="1" colspan="1">Teléfono</th>
+            <th rowspan="1" colspan="1">Dirección</th>
+            <th rowspan="1" colspan="1">Correo</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for veterinaria in vets %}
+          <tr class="odd">
+            <td class="sorting_1">{{ veterinaria.nombre }}</td>
+            <td>{{ veterinaria.telefono }}</td>
+            <td>{{ veterinaria.direccion }}</td>
+            <td>{{ veterinaria.correo }}</td>
+            <td>
+              <a href="/vet/edit/{{ veterinaria.id }}" class="btn btn-info btn-circle btn-sm">
+                <i class="fas fa-pen"></i>
+              </a>
+              <a href="/vet/confirm/delete/{{ veterinaria.id }}" class="btn btn-danger btn-circle btn-sm">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block js_scripts %}
+<script src="{{ url_for('static',filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{ url_for('static',filename='js/demo/datatables-demo.js') }}"></script>
 {% endblock %}

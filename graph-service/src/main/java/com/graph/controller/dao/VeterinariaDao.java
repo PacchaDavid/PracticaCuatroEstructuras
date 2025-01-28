@@ -5,51 +5,50 @@ import com.graph.controller.dao.implement.JsonFileManager;
 import com.graph.controller.models.Veterinaria;
 
 public class VeterinariaDao extends AdapterDao<Veterinaria> {
-    public Veterinaria veterinario;
+    public Veterinaria veterinaria;
 
     public VeterinariaDao() {
         super(Veterinaria.class);
     }
 
-    public Veterinaria getVeterinario() {
-        if (this.veterinario == null) {
-            this.veterinario = new Veterinaria();
+    public Veterinaria getVeterinaria() {
+        if (this.veterinaria == null) {
+            this.veterinaria = new Veterinaria();
         }
 
-        return this.veterinario;
+        return this.veterinaria;
     }
 
-    public void setVeterinario(Veterinaria veterinario) {
-        this.veterinario = veterinario;
+    public void setVeterinaria(Veterinaria veterinaria) {
+        this.veterinaria = veterinaria;
     }
 
     public void veterinarioFromJson(String json) {
-        this.veterinario = this.g.fromJson(json, Veterinaria.class);
+        this.veterinaria = this.g.fromJson(json, Veterinaria.class);
     }
 
-    public Veterinaria[] getVeterinarios() {
+    public Veterinaria[] getVeterinarias() {
         return this.getArray();
     }
 
-    public Veterinaria getVeterinarioById(Integer id) throws Exception {
+    public Veterinaria getVeterinariaById(Integer id) throws Exception {
         return get(id);
     }
 
-    public Veterinaria saveVeterinario() throws Exception {
+    public Veterinaria saveVeterinaria() throws Exception {
         Integer id = JsonFileManager.readAndUpdateCurrentIdOf(className);
-        this.getVeterinario().setId(id);
-        return persist(veterinario);
+        this.getVeterinaria().setId(id);
+        saveInJsonGraph(this.veterinaria, Veterinaria.class);
+        return persist(veterinaria);
     }
 
-    public Veterinaria updateVeterinario() throws Exception {
-        Integer id = this.veterinario.getId();
-        return merge(veterinario, id);
+    public Veterinaria updateVeterinaria() throws Exception {
+        Integer id = this.veterinaria.getId();
+        return merge(veterinaria, id);
     }
 
-    public Veterinaria deleteVeterinario(Integer id) throws Exception {
+    public Veterinaria deleteVeterinaria(Integer id) throws Exception {
         return remove(id);
     }
-
-    
 
 }

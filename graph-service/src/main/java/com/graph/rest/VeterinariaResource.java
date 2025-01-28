@@ -21,7 +21,7 @@ public class VeterinariaResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/list")
     public Response getAll() {
-        return ResponseFactory.buildResponse(new VeterinariaServices(),"getVeterinarios");
+        return ResponseFactory.buildResponse(new VeterinariaServices(),"getVeterinarias");
     }
 
     @POST
@@ -29,14 +29,14 @@ public class VeterinariaResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/save")
     public Response save(String personaJson) {
-        return ResponseFactory.buildResponse(new VeterinariaServices(),"saveVeterinario", personaJson);
+        return ResponseFactory.buildResponse(new VeterinariaServices(),"saveVeterinaria", personaJson);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/get/{id}")
     public Response get(@PathParam("id") Integer id) {
-        return ResponseFactory.buildResponse(new VeterinariaServices(),"getVeterinarioById",id);
+        return ResponseFactory.buildResponse(new VeterinariaServices(),"getVeterinariaById",id);
     }
 
     @POST
@@ -44,7 +44,7 @@ public class VeterinariaResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/update")
     public Response update(String personaJson) {
-       return ResponseFactory.buildResponse(new VeterinariaServices(),"updateVeterinario", personaJson);
+       return ResponseFactory.buildResponse(new VeterinariaServices(),"updateVeterinaria", personaJson);
     }
 
     @DELETE
@@ -52,6 +52,6 @@ public class VeterinariaResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete/{id}")
     public Response delete(@PathParam("id") Integer id) {
-        return ResponseFactory.buildResponse(new VeterinariaServices(),"deleteVeterinario",id);
+        return ResponseFactory.buildResponse(new VeterinariaServices(),"deleteVeterinaria",id);
     }
 }

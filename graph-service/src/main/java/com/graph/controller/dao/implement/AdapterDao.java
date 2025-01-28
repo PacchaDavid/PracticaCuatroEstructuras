@@ -2,6 +2,8 @@ package com.graph.controller.dao.implement;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+
+import com.graph.controller.tda.graph.LabeledGraph;
 import com.graph.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
 
@@ -50,6 +52,12 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
         return list;
     }
 
+    public void saveInJsonGraph(T objt, Class<?> class1) throws Exception {
+        LabeledGraph<Object> graph = JsonFileManager.graphFromJson(class1);
+        graph.labelVertex(graph.numVertices(), objt);
+        JsonFileManager.saveFile(graph.graphToJson(), "Graph" + className);
+    }
+
     //OBTENER UN OBJETO
     public T get(Integer id) throws Exception {
         LinkedList<T> list = listAll();
@@ -62,6 +70,7 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
     }
 
     public T saveInJsonGraph() {
+
         return (T)new Object();
     }
 

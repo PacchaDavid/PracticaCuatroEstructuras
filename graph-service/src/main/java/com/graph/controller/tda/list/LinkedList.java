@@ -114,7 +114,7 @@ public class LinkedList<E> {
         if (isEmpty()) {
             throw new ListEmptyException("Error, Lista Vacía");
         } else if (index.intValue() < 0 || index.intValue() >= this.size) {
-            throw new IndexOutOfBoundsException("Error, Índice Fuera de Rango");
+            throw new IndexOutOfBoundsException("Index " + index + ", out of Bounds " + this.size);
         } else if (index.intValue() == 0) {
             return header;
         } else if (index.intValue() == (this.size - 1)) {

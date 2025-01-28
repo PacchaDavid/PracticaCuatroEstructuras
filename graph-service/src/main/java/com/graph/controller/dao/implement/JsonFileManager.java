@@ -8,11 +8,11 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.graph.controller.tda.graph.Adjacency;
 import com.graph.controller.tda.graph.LabeledGraph;
-import com.graph.controller.tda.list.LinkedList;
 
 public class JsonFileManager {
 
@@ -31,53 +31,58 @@ public class JsonFileManager {
         }
     }
 
-    public static JsonElement labeledGraphToJson(LabeledGraph<?> labeledGraph) {
-        StringBuilder sb = new StringBuilder("{");
-        Gson gson = new Gson();
-        sb.append("\"vertices\": [");
-
-        for (int i = 1; i <= labeledGraph.numVertices(); i++) {
-            String labelJson = gson.toJson(labeledGraph.getLabelOfVertice(i));
-
-            sb.append("{\"v" + i + "\": " + labelJson + "}");
-            if(i < labeledGraph.numVertices()) {
-                sb.append(",");
-            }
-        }
-
-        sb.append("]");
-        sb.append(",\"adjacencies\": {");
-
-        LinkedList<Adjacency>[] adjacencies = labeledGraph.getAdjacencies();
-
-        for (int i = 1; i < adjacencies.length; i++) {
-            sb.append("\"v" + i + "\": [");
-            for (int j = 0; j < adjacencies[i].getSize(); j++) {
-
-                try {
-                    sb.append(gson.toJson(adjacencies[i].get(j)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (j < adjacencies[i].getSize() - 1) {
-                    sb.append(",");
-                }
-            }
-            sb.append("]");
-
-            if (i < adjacencies.length - 1) {
-                sb.append(",");
-            }
-        }
-
-        sb.append("} }");
-
-        return gson.fromJson(sb.toString(), JsonElement.class);
+    public static JsonElement graphToJson(LabeledGraph<?> labeledGraph) {
+        return labeledGraph.graphToJson();
     }
 
+    public static LabeledGraph<Object> graphFromJson(Class<?> _class_, Boolean forShow) throws Exception {
+        String graphNameClass = _class_.getSimpleName();
+        JsonElement element = null;
+        try {
+            element = new Gson().fromJson(readFile("Graph" + graphNameClass), JsonElement.class);
+        } catch (Exception e) {
+            System.out.println("Errorsito:" + e.getMessage());
+        }
+
+        boolean nullElement = element == null;
+
+        if (nullElement) {
+            return new LabeledGraph<>(1, Object.class);
+        }
+
+        
+        JsonObject vertices = element.getAsJsonObject().get("vertices").getAsJsonObject();
+
+        Integer numVertices = (forShow) ? vertices.size() : vertices.size() + 1;
+        
+        LabeledGraph<Object> graph = new LabeledGraph<>(numVertices, Object.class);
+
+        Gson gson = new Gson();
+        for (int j = 0; j < vertices.size(); j++) {
+            JsonObject obj = vertices.get("v" + Integer.toString(j + 1)).getAsJsonObject();
+            graph.labelVertex(j + 1, gson.fromJson(obj.toString(), _class_));
+        }
+
+        JsonObject obj = element.getAsJsonObject().get("adjacencies").getAsJsonObject();
+        for (int j = 1; j <= obj.size(); j++) {
+            String key = "v" + Integer.toString(j);
+            JsonArray adjs = obj.get(key).getAsJsonArray();
+            
+            for (int i = 0; i < adjs.size(); i++) {
+                JsonObject adjacency = adjs.get(i).getAsJsonObject();
+                graph.addEdge(j, adjacency.get("destination").getAsInt(), adjacency.get("weight").getAsFloat());
+            }
+        }
+        
+        return graph;
+    }
+
+    public static LabeledGraph<Object> graphFromJson(Class<?> class1) throws Exception {
+        return graphFromJson(class1,false);
+    } 
+
     /* public static void main(String[] args) throws Exception {
-        LabeledGraph<Veterinaria> labeledGraph = new LabeledGraph<>(4, Veterinaria.class);
+        LabeledGraph<Object> labeledGraph = new LabeledGraph<>(4, Object.class);
         Veterinaria v = new VeterinariaBuilder().veterinariaWithGenericData().build();
 
         labeledGraph.labelVertex(1,v);
@@ -97,9 +102,10 @@ public class JsonFileManager {
         labeledGraph.addEdge(3, 2,2f);
         labeledGraph.addEdge(3, 1,2f);
 
-        JsonElement jsonElement = labeledGraphToJson(labeledGraph);
+        saveFile(labeledGraph.graphToJson(), "GraphVeterinaria");
 
-        JsonObject obj = jsonElement.getAsJsonObject();
+        labeledGraph = graphFromJson(Veterinaria.class);
+        System.out.println(labeledGraph);
     } */
 
     public static String readFile(String className) {

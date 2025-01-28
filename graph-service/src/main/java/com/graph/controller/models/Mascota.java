@@ -68,4 +68,11 @@ public class Mascota {
     public void setAltura(Float altura) {
         this.altura = altura;
     }
+
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.tipoMascota;
+    }
+
 }

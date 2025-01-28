@@ -3,6 +3,8 @@ package com.graph.controller.tda.graph;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.graph.controller.tda.list.LinkedList;
 
 @SuppressWarnings("unchecked")
@@ -82,7 +84,6 @@ public class LabeledGraph<E> extends DirectedGraph {
     public void floydWarshall() throws Exception {
         float[][] dist = new float[numVertices() + 1][numVertices() + 1];
 
-        // Inicializar la matriz de distancias
         for (int i = 1; i <= numVertices(); i++) {
             for (int j = 1; j <= numVertices(); j++) {
                 if (i == j) {
@@ -93,14 +94,12 @@ public class LabeledGraph<E> extends DirectedGraph {
             }
         }
 
-        // Llenar la matriz con las distancias de las aristas directas
         for (int i = 1; i <= numVertices(); i++) {
             for (Adjacency adj : adjacencyList(i).toArray(Adjacency.class)) {
                 dist[i][adj.getDestination()] = adj.getWeight();
             }
         }
 
-        // Aplicar el algoritmo de Floyd-Warshall
         for (int k = 1; k <= numVertices(); k++) {
             for (int i = 1; i <= numVertices(); i++) {
                 for (int j = 1; j <= numVertices(); j++) {
@@ -111,7 +110,6 @@ public class LabeledGraph<E> extends DirectedGraph {
             }
         }
 
-        // Mostrar los resultados
         for (int i = 1; i <= numVertices(); i++) {
             for (int j = 1; j <= numVertices(); j++) {
                 if (dist[i][j] == Float.POSITIVE_INFINITY) {
@@ -124,18 +122,13 @@ public class LabeledGraph<E> extends DirectedGraph {
         }
     }
 
-     // Método para ejecutar el algoritmo de Bellman-Ford
     public void bellmanFord(int source) {
-        // Inicializar las distancias
         float[] dist = new float[numVertices() + 1];
-        //Arrays.fill(dist, Float.POSITIVE_INFINITY);
 
         for (int i = 0; i < dist.length; i++) dist[i] = Float.POSITIVE_INFINITY;
 
 
         dist[source] = 0;
-
-        // Relajar todas las aristas numVertices()-1 veces
         for (int i = 1; i <= numVertices() - 1; i++) {
             for (int u = 1; u <= numVertices(); u++) {
                 for (Adjacency adj : adjacencyList(u).toArray(Adjacency.class)) {
@@ -148,7 +141,6 @@ public class LabeledGraph<E> extends DirectedGraph {
             }
         }
 
-        // Verificar si hay ciclos negativos
         for (int u = 1; u <= numVertices(); u++) {
             for (Adjacency adj : adjacencyList(u).toArray(Adjacency.class)) {
                 int v = adj.getDestination();
@@ -160,7 +152,6 @@ public class LabeledGraph<E> extends DirectedGraph {
             }
         }
 
-        // Imprimir las distancias más cortas desde el vértice fuente
         System.out.println("Distancias más cortas desde el vértice " + source + ":");
         for (int i = 1; i <= numVertices(); i++) {
             if (dist[i] == Float.POSITIVE_INFINITY) {
@@ -168,6 +159,102 @@ public class LabeledGraph<E> extends DirectedGraph {
             } else {
                 System.out.println("V" + i + " : " + dist[i]);
             }
+        }
+    }
+
+    public String writeGraphAsJavaScriptCode() throws Exception {
+        StringBuilder sb = new StringBuilder("var nodes = new vis.DataSet([\n");
+        for (int i = 1; i <= numVertices(); i++) {
+            sb.append("\t{ id: " + i + ", label: " + "\"" + getLabelOfVertice(i).toString() + "\" }");
+            if (i < numVertices()) sb.append(",\n");
+        }
+
+        sb.append("\n]);\n\n");
+        
+        sb.append("var edges = new vis.DataSet([\n");
+
+        LinkedList<Adjacency>[] lista = getAdjacencies();
+        for (int i = 1; i < lista.length; i++) {
+            LinkedList<Adjacency> adjs = lista[i];
+            for (int j = 0; j < adjs.getSize(); j++) {
+                sb.append("\t{ from: " + i + ", to: " + adjs.get(j).getDestination() + "}");
+                if (j < adjs.getSize() - 1) sb.append(",\n");
+            }
+            if (i < lista.length - 1 && !adjs.isEmpty()) sb.append(",\n");
+        }
+
+        sb.append("\n]);\n\n");
+        sb.append("var container = document.getElementById(\"mynetwork\");\n\n");
+        sb.append("var data = {\n").append("\tnodes: nodes,\n").append("\tedges:edges\n};\n\n");
+        sb.append("var options = {}\n\n");
+        sb.append("var network = new vis.Network(container, data, options);");
+
+        return sb.toString();
+    }
+
+    public static JsonElement graphToJson(LabeledGraph<?> labeledGraph) {
+        StringBuilder sb = new StringBuilder("{");
+        Gson gson = new Gson();
+        sb.append("\"vertices\": {");
+
+        for (int i = 1; i <= labeledGraph.numVertices(); i++) {
+            String labelJson = gson.toJson(labeledGraph.getLabelOfVertice(i));
+
+            sb.append("\"v" + i + "\": " + labelJson);
+            if(i < labeledGraph.numVertices()) {
+                sb.append(",");
+            }
+        }
+
+        sb.append("}");
+        sb.append(",\"adjacencies\": {");
+
+        LinkedList<Adjacency>[] adjacencies = labeledGraph.getAdjacencies();
+
+        for (int i = 1; i < adjacencies.length; i++) {
+            sb.append("\"v" + i + "\": [");
+            for (int j = 0; j < adjacencies[i].getSize(); j++) {
+
+                try {
+                    sb.append(gson.toJson(adjacencies[i].get(j)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (j < adjacencies[i].getSize() - 1) {
+                    sb.append(",");
+                }
+            }
+            sb.append("]");
+
+            if (i < adjacencies.length - 1) {
+                sb.append(",");
+            }
+        }
+
+        sb.append("} }");
+
+        return gson.fromJson(sb.toString(), JsonElement.class);
+    }
+
+    public JsonElement graphToJson() {
+        return graphToJson(this);
+    }
+
+    public void edgeAllVertices() throws Exception {
+        int min = 1;
+        int max = numVertices();
+        for (int i = 1; i <= numVertices(); i++) {
+
+            double randomNumber = (Math.random() * (max - min + 1) + min);
+            int randomDestination = (int)randomNumber;
+            float weight = (float)randomNumber;
+            
+            if (randomDestination == i) { 
+                randomDestination = (int)(Math.random() * (max - min + 1) + min);
+            }
+
+            this.addEdge(i, randomDestination, weight);
         }
     }
 
@@ -194,6 +281,7 @@ public class LabeledGraph<E> extends DirectedGraph {
         graph.addEdge(1, 2, 4f);
         graph.addEdge(5, 3, 4f);
 
-        graph.bellmanFord(1);
+        //graph.bellmanFord(1);
+        System.out.println(graph.writeGraphAsJavaScriptCode());;
     }
 }

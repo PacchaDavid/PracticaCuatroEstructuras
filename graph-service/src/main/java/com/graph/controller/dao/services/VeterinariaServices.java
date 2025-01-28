@@ -10,39 +10,39 @@ public class VeterinariaServices {
         this.obj = new VeterinariaDao();
     }
 
-    public Veterinaria getVeterinario() {
-        return this.obj.getVeterinario();
+    public Veterinaria getVeterinaria() {
+        return this.obj.getVeterinaria();
     }
 
-    public Veterinaria[] getVeterinarios() {
-        return this.obj.getVeterinarios();
+    public Veterinaria[] getVeterinarias() {
+        return this.obj.getVeterinarias();
     }
 
-    public Veterinaria getVeterinarioById(Integer id) throws Exception {
-        return this.obj.getVeterinarioById(id);
+    public Veterinaria getVeterinariaById(Integer id) throws Exception {
+        return this.obj.getVeterinariaById(id);
     }
 
-    public Veterinaria saveVeterinario(String json) throws Exception {
+    public Veterinaria saveVeterinaria(String json) throws Exception {
         this.obj.veterinarioFromJson(json);
-        return this.obj.saveVeterinario();
+        return this.obj.saveVeterinaria();
     }
 
-    public Veterinaria updateVeterinario(String json) throws Exception {
+    public Veterinaria updateVeterinaria(String json) throws Exception {
         this.obj.veterinarioFromJson(json);
-        return this.obj.updateVeterinario();
+        return this.obj.updateVeterinaria();
     }
 
-    public Veterinaria deleteVeterinario(Integer id) throws Exception {
-        return this.obj.deleteVeterinario(id);
+    public Veterinaria deleteVeterinaria(Integer id) throws Exception {
+        return this.obj.deleteVeterinaria(id);
     }
 
     // BUSQUEDA Y ORDENACIÓN ==========================================================
 
-   /*  public Veterinario[] sort(String attribute, Integer orden, Integer method) throws Exception {
+   /*  public Veterinaria[] sort(String attribute, Integer orden, Integer method) throws Exception {
         return this.obj.sort(attribute,orden,method);
     }
     
-    public Veterinario[] search(String attribute, String x) throws Exception {
+    public Veterinaria[] search(String attribute, String x) throws Exception {
         return this.obj.search(attribute, x);
     } */
 }

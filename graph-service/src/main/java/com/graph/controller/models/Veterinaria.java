@@ -57,4 +57,17 @@ public class Veterinaria {
         this.direccion = direccion;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", nombre='" + getNombre() + "'" +
+            ", telefono='" + getTelefono() + "'" +
+            ", direccion='" + getDireccion() + "'" +
+            ", correo='" + getCorreo() + "'" +
+            "}";
+    }
+
 }

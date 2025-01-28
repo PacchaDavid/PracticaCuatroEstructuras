@@ -38,6 +38,7 @@ public class MascotaDao extends AdapterDao<Mascota> {
     public Mascota saveMascota() throws Exception {
         Integer id = JsonFileManager.readAndUpdateCurrentIdOf(className);
         this.getMascota().setId(id);
+        saveInJsonGraph(this.mascota, Mascota.class);
         return persist(mascota);
     }
 
@@ -49,7 +50,5 @@ public class MascotaDao extends AdapterDao<Mascota> {
     public Mascota deleteMascota(Integer id) throws Exception {
         return remove(id);
     }
-
-
 
 }
