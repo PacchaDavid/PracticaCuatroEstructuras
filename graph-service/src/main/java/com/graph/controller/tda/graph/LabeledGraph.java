@@ -177,7 +177,7 @@ public class LabeledGraph<E> extends DirectedGraph {
         for (int i = 1; i < lista.length; i++) {
             LinkedList<Adjacency> adjs = lista[i];
             for (int j = 0; j < adjs.getSize(); j++) {
-                sb.append("\t{ from: " + i + ", to: " + adjs.get(j).getDestination() + "}");
+                sb.append("\t{ from: " + i + ", to: " + adjs.get(j).getDestination() + ", label: "+ "\'" + adjs.get(j).getWeight() + "\'" + " }");
                 if (j < adjs.getSize() - 1) sb.append(",\n");
             }
             if (i < lista.length - 1 && !adjs.isEmpty()) sb.append(",\n");
