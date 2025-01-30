@@ -55,6 +55,7 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
     public void saveInJsonGraph(T objt, Class<?> class1) throws Exception {
         LabeledGraph<Object> graph = JsonFileManager.graphFromJson(class1);
         graph.labelVertex(graph.numVertices(), objt);
+        graph.edgeAllVertices();
         JsonFileManager.saveFile(graph.graphToJson(), "Graph" + className);
     }
 

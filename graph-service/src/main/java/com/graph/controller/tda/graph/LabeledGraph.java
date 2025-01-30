@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.graph.controller.tda.graph._interface.ModelEdge;
 import com.graph.controller.tda.list.LinkedList;
 
 @SuppressWarnings("unchecked")
@@ -186,10 +187,23 @@ public class LabeledGraph<E> extends DirectedGraph {
         sb.append("\n]);\n\n");
         sb.append("var container = document.getElementById(\"mynetwork\");\n\n");
         sb.append("var data = {\n").append("\tnodes: nodes,\n").append("\tedges:edges\n};\n\n");
-        sb.append("var options = {}\n\n");
+        sb.append("var options = {};\n\n");
         sb.append("var network = new vis.Network(container, data, options);");
 
         return sb.toString();
+    }
+
+    public void edgeAll(ModelEdge<E> modelEdge) throws Exception {
+
+        LinkedList<Adjacency> adjs[] = getAdjacencies();
+        for (int j = 1; j < adjs.length; j++) {
+            LinkedList<Adjacency> adj = adjs[j];
+            for (int i = 0; i < adj.getSize(); i++) {
+                Adjacency ad = adj.get(i);
+                addEdge(j, ad.getDestination(), modelEdge.heuristicaVertices(getLabelOfVertice(j), getLabelOfVertice(ad.getDestination())));
+            }
+        }
+
     }
 
     public static JsonElement graphToJson(LabeledGraph<?> labeledGraph) {
@@ -258,30 +272,4 @@ public class LabeledGraph<E> extends DirectedGraph {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        LabeledGraph<String> graph = new LabeledGraph<>(10,String.class);
-
-        graph.labelVertex(1, "Guaman");
-        graph.labelVertex(2, "Cevallos");
-        graph.labelVertex(3, "Ivan");
-        graph.labelVertex(4, "Jgraso");
-        graph.labelVertex(5, "Pancho");
-        graph.labelVertex(6, "Riofrío");
-        graph.labelVertex(7, "Ontaneda");
-        graph.labelVertex(8, "Nole");
-        graph.labelVertex(9, "Tomalá");
-        graph.labelVertex(10,"Tansado");
-
-        graph.addEdge(1, 3, 4f);
-        graph.addEdge(2, 6, -4f);
-        graph.addEdge(9, 7, 4f);
-        graph.addEdge(8, 10, 4f);
-        graph.addEdge(6, 4, 4f);
-        graph.addEdge(10, 3, 4f);
-        graph.addEdge(1, 2, 4f);
-        graph.addEdge(5, 3, 4f);
-
-        //graph.bellmanFord(1);
-        System.out.println(graph.writeGraphAsJavaScriptCode());;
-    }
 }

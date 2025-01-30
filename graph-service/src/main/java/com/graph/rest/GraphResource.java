@@ -30,6 +30,31 @@ public class GraphResource {
                 return "console.log('Bad Request')";
             }
             
+            respuesta = grafo.writeGraphAsJavaScriptCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta = "console.log('Error en el servidor, 500')";
+        }
+        
+        return respuesta;
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/get-as-js/{clase}/{randomic}")
+    public String javaScriptGraph(@PathParam("clase") Integer clase, @PathParam("randomic") Integer randomic) {
+        LabeledGraph<Object> grafo;
+        String respuesta;
+
+        try {
+            if (clase == 0) {
+                grafo = JsonFileManager.graphFromJson(Mascota.class, true);    
+            } else if (clase == 1) {
+                grafo = JsonFileManager.graphFromJson(Veterinaria.class, true);
+            } else {
+                return "console.log('Bad Request')";
+            }
+            
             grafo.edgeAllVertices();
             respuesta = grafo.writeGraphAsJavaScriptCode();
         } catch (Exception e) {
@@ -39,5 +64,7 @@ public class GraphResource {
         
         return respuesta;
     }
+
+
 
 }
