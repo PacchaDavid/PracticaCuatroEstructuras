@@ -58,4 +58,6 @@ cd ../graph-service/; mvn clean compile; mvn exec:java<br>
 <div>en otro proceso distinto puede ejecutar el front:</div>
 python3 ../front/index.py<br>
 <br>
-Con esto, puede empezar a utilizar la aplicación dirigiéndose a la siguiente ruta en su navegador de preferencia: localhost:5000/
+Con esto, puede empezar a utilizar la aplicación dirigiéndose a la siguiente ruta en su navegador de preferencia: localhost:5000/<br>
+
+El template html fue sacado de: https://startbootstrap.com/theme/sb-admin-2/
