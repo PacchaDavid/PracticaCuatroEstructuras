@@ -36,10 +36,10 @@ Para correr este proyecto, necesitarás tener instalados los siguientes programa
   
 git clone https://github.com/PacchaDavid/PracticaCuatroEstructuras
 
-Navega a la carpeta del proyecto:
+<div>Navega a la carpeta del proyecto:</div>
 cd PracticaCuatroEstructuras/
 
-Instalar Dependencias (solo para bash)
+<div>Instalar Dependencias (solo para bash)</div>
 
 Ejecuta los siguientes comandos para instalar las dependencias necesarias del backend (java):
 cd graph-service/
