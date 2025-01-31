@@ -2,6 +2,7 @@ package com.graph.controller.dao.services;
 
 import com.graph.controller.dao.VeterinariaDao;
 import com.graph.controller.models.Veterinaria;
+import com.graph.controller.models.enumeration.Ciudad;
 
 public class VeterinariaServices {
     private VeterinariaDao obj;
@@ -38,6 +39,10 @@ public class VeterinariaServices {
 
     public void addEdgeVeterinaria(Integer v1, Integer v2) throws Exception {
         this.obj.addEdgeVeterinaria(v1, v2);
+    }
+
+    public Ciudad[] enumerations() {
+        return Ciudad.values();
     }
 
     // BUSQUEDA Y ORDENACIÓN ==========================================================

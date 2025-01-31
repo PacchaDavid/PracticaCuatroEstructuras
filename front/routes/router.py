@@ -22,6 +22,7 @@ def graph_pet(randomize):
 def graph_vet(randomize):
     text = requests.get(f'{back_url}/graph/get-as-js/1/{randomize}').text
     vertices = requests.get(f'{back_url}/graph/get-vertices/1').json()['data']
+    print(vertices)
     with open('static/js/grafoVeterinaria.js', 'w') as file:
         file.write(str(text))
 
@@ -53,6 +54,6 @@ def shortest_path(graph_type):
         vertices = requests.get(f'{back_url}/graph/get-vertices/1').json()['data']
 
     shortest_path = response.json()['data']['paths']
-    
+
 
     return render_template('fragment/graphs/graph_shortest_path.html', shortest_path=shortest_path, vet=graph_type, vertices=vertices)   

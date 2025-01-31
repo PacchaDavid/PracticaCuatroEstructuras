@@ -46,7 +46,7 @@
               </div>
 
               <div class="form-group">
-                <select class="form-control" name="tipoMascota" id="tipoMascota">
+                <select class="form-control" name="sexoBiologico" id="sexoBiologico">
                   {% for tipo in tipos.sexoBiologico %}
                     <option value="{{ tipo }}" {% block sexoBiologico_input %}{% endblock %}>{{ tipo }}</option>
                   {% endfor %}

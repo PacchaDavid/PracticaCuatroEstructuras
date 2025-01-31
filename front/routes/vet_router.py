@@ -7,7 +7,8 @@ def vets():
 
 @router.route('/vets/create/')
 def vets_create():
-    return render_template('fragment/vets/create.html')
+    ciudades = requests.get(f'{back_url}/veterinaria/enumerations').json()
+    return render_template('fragment/vets/create.html', ciudades=ciudades['data'])
 
 @router.route('/vet/save/', methods=['POST'])
 def vets_save():

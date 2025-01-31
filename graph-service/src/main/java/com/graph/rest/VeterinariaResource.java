@@ -47,6 +47,13 @@ public class VeterinariaResource {
        return ResponseFactory.buildResponse(new VeterinariaServices(),"updateVeterinaria", personaJson);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/enumerations")
+    public Response enumerations() {
+        return ResponseFactory.buildResponse(new VeterinariaServices(),"enumerations");
+    }
+
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

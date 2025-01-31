@@ -1,17 +1,12 @@
 var nodes = new vis.DataSet([
-	{ id: 1, label: "Juan VACA" },
-	{ id: 2, label: "Daniela GATO" },
-	{ id: 3, label: "John HAMSTER" },
-	{ id: 4, label: "Santiago PERRO" },
-	{ id: 5, label: "Dogo PERRO" }
+	{ id: 1, label: "Daniela PERRO" },
+	{ id: 2, label: "Final PERRO" },
+	{ id: 3, label: "Santiago CABALLO" }
 ]);
 
 var edges = new vis.DataSet([
-	{ from: 1, to: 5, label: '5.274025' },
-	{ from: 2, to: 1, label: '100000.0' },
-	{ from: 3, to: 4, label: '4.1096816' },
-	{ from: 4, to: 2, label: '2.0174346' },
-	{ from: 5, to: 4, label: '1.0' }
+	{ from: 1, to: 2, label: '1.0' },
+	{ from: 3, to: 1, label: '100000.0' }
 ]);
 
 var container = document.getElementById("mynetwork");
