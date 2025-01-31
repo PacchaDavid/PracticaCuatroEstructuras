@@ -26,8 +26,9 @@ Pesos Calculados: Los enlaces entre nodos tienen un peso calculado según divers
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Instalación
-Requisitos
+<h2>Instalación</h2>
+<h3>Requisitos</h3>
+
 Para correr este proyecto, necesitarás tener instalados los siguientes programas:
 
 - python3
