@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.graph.controller.tda.graph._interface.ModelEdge;
 import com.graph.controller.tda.list.LinkedList;
 
 @SuppressWarnings("unchecked")
@@ -123,7 +122,7 @@ public class LabeledGraph<E> extends DirectedGraph {
         }
     }
 
-    public void bellmanFord(int source) {
+    public String bellmanFord(int source) {
         float[] dist = new float[numVertices() + 1];
 
         for (int i = 0; i < dist.length; i++) dist[i] = Float.POSITIVE_INFINITY;
@@ -148,19 +147,24 @@ public class LabeledGraph<E> extends DirectedGraph {
                 float weight = adj.getWeight();
                 if (dist[u] != Float.POSITIVE_INFINITY && dist[u] + weight < dist[v]) {
                     System.out.println("El grafo contiene un ciclo negativo");
-                    return;
+                    return null;
                 }
             }
         }
+
+        StringBuilder sb = new StringBuilder();
 
         System.out.println("Distancias más cortas desde el vértice " + source + ":");
         for (int i = 1; i <= numVertices(); i++) {
             if (dist[i] == Float.POSITIVE_INFINITY) {
                 System.out.println("V" + i + " : INFINITO");
+                sb.append("V" + i + " : INFINITO\n");
             } else {
                 System.out.println("V" + i + " : " + dist[i]);
+                sb.append("V" + i + " : " + dist[i] + "\n");
             }
         }
+        return sb.toString();
     }
 
     public String writeGraphAsJavaScriptCode() throws Exception {
@@ -191,19 +195,6 @@ public class LabeledGraph<E> extends DirectedGraph {
         sb.append("var network = new vis.Network(container, data, options);");
 
         return sb.toString();
-    }
-
-    public void edgeAll(ModelEdge<E> modelEdge) throws Exception {
-
-        LinkedList<Adjacency> adjs[] = getAdjacencies();
-        for (int j = 1; j < adjs.length; j++) {
-            LinkedList<Adjacency> adj = adjs[j];
-            for (int i = 0; i < adj.getSize(); i++) {
-                Adjacency ad = adj.get(i);
-                addEdge(j, ad.getDestination(), modelEdge.heuristicaVertices(getLabelOfVertice(j), getLabelOfVertice(ad.getDestination())));
-            }
-        }
-
     }
 
     public static JsonElement graphToJson(LabeledGraph<?> labeledGraph) {
@@ -270,6 +261,10 @@ public class LabeledGraph<E> extends DirectedGraph {
 
             this.addEdge(i, randomDestination, weight);
         }
+    }
+
+    public HashMap<E, Integer> getDictVertices() {
+        return dictVertices;
     }
 
 }

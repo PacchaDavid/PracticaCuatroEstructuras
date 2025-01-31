@@ -59,7 +59,7 @@ public class MascotaResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/enumerations")
     public Response enumerations() {
-        return ResponseFactory.buildResponse(new MascotaServices(),"tiposMascota");
+        return ResponseFactory.buildResponse(new MascotaServices(),"enumerations");
     }
 
     @GET

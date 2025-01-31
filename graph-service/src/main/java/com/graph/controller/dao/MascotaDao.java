@@ -44,18 +44,29 @@ public class MascotaDao extends AdapterDao<Mascota> {
         return persist(mascota);
     }
 
-    public LabeledGraph<Object> edgeVerticesOfGraphMascota() throws Exception {
-        LabeledGraph<Object> labeledGraph = JsonFileManager.graphFromJson(getMascota().getClass());
-        labeledGraph.edgeAll(new ModelEdge<Object>() {
-            @Override
-            public float heuristicaVertices(Object o1, Object o2) {
-                if ( ((Mascota)o1).getTipoMascota().equals( ((Mascota)o2).getTipoMascota() )) {
-                    return 1.11f;
-                } 
-                return 10f;
+    public void addEdgeMascota(Integer v1, Integer v2) throws Exception {
+        LabeledGraph<Object> graph = JsonFileManager.graphFromJson(Mascota.class);
+        
+        ModelEdge<Object> edge = (Object o1, Object o2) -> {
+            Mascota mascota1 = (Mascota)o1;
+            Mascota mascota2 = (Mascota)o2;
+
+            final boolean mismaEspecie = mascota1.getTipoMascota().equals(mascota2.getTipoMascota());
+
+            if (mismaEspecie) {
+                return 1.0f;
+            } else {
+                return 100000.0f;
             }
-        });
-        return labeledGraph;
+        };
+
+        Mascota mascota1 = (Mascota)graph.getLabelOfVertice(v1);
+        Mascota mascota2 = (Mascota)graph.getLabelOfVertice(v2);
+
+        graph.addEdge(v1, v2, edge.heuristicaVertices(mascota1, mascota2));
+
+        System.out.println(graph);
+        JsonFileManager.saveFile(graph.graphToJson(), "Graph" + className);
     }
 
     public Mascota updateMascota() throws Exception {

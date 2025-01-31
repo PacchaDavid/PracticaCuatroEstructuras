@@ -1,11 +1,15 @@
 package com.graph.controller.models;
 
+import com.graph.controller.models.enumeration.Ciudad;
+
 public class Veterinaria {
     private Integer id;
     private String nombre;
     private String telefono;
     private String direccion;
     private String correo;
+
+    private Ciudad ciudad;
 
     public Veterinaria() {}
 
@@ -57,17 +61,17 @@ public class Veterinaria {
         this.direccion = direccion;
     }
 
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
 
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
 
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", nombre='" + getNombre() + "'" +
-            ", telefono='" + getTelefono() + "'" +
-            ", direccion='" + getDireccion() + "'" +
-            ", correo='" + getCorreo() + "'" +
-            "}";
+        return "nombre: " + nombre + ", direccion: " + direccion;
     }
 
 }

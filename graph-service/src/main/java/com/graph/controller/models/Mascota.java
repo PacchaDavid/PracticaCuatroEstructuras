@@ -1,5 +1,6 @@
 package com.graph.controller.models;
 
+import com.graph.controller.models.enumeration.SexoBiologico;
 import com.graph.controller.models.enumeration.TipoMascota;
 
 public class Mascota {
@@ -9,6 +10,7 @@ public class Mascota {
     private Float peso;
     private Float altura;
     private TipoMascota tipoMascota;
+    private SexoBiologico sexoBiologico;
 
     public Mascota() {}
 
@@ -67,6 +69,14 @@ public class Mascota {
 
     public void setAltura(Float altura) {
         this.altura = altura;
+    }
+
+    public SexoBiologico getSexoBiologico() {
+        return sexoBiologico;
+    }
+
+    public void setSexoBiologico(SexoBiologico sexoBiologico) {
+        this.sexoBiologico = sexoBiologico;
     }
 
 

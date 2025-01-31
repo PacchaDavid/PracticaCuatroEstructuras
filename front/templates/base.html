@@ -19,11 +19,11 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {% block dashboard_nav_item %}{% endblock %}">
+<!--     <li class="nav-item {% block dashboard_nav_item %}{% endblock %}">
       <a class="nav-link" href="/">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
-    </li>
+    </li> -->
 
     <li class="nav-item {% block pets_nav_item %}{% endblock %}">
       <a class="nav-link" href="/pets">
@@ -37,10 +37,16 @@
         <span>Vets</span></a>
     </li>
 
-    <li class="nav-item {% block graph_nav_item %}{% endblock %}">
-      <a class="nav-link" href="/graphs">
+    <li class="nav-item {% block graph_pet_nav_item %}{% endblock %}">
+      <a class="nav-link" href="/graph/pet/False">
         <i class="fas fa-circle"></i>
-        <span>Graphs</span></a>
+        <span>Graph Pet</span></a>
+    </li>
+
+    <li class="nav-item {% block graph_vet_nav_item %}{% endblock %}">
+      <a class="nav-link" href="/graph/vet/False">
+        <i class="fas fa-circle"></i>
+        <span>Graph Vet</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

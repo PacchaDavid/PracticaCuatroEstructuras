@@ -36,6 +36,10 @@ public class VeterinariaServices {
         return this.obj.deleteVeterinaria(id);
     }
 
+    public void addEdgeVeterinaria(Integer v1, Integer v2) throws Exception {
+        this.obj.addEdgeVeterinaria(v1, v2);
+    }
+
     // BUSQUEDA Y ORDENACIÓN ==========================================================
 
    /*  public Veterinaria[] sort(String attribute, Integer orden, Integer method) throws Exception {

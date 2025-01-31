@@ -1,6 +1,7 @@
 package com.graph.controller.models.builder;
 
 import com.graph.controller.models.Veterinaria;
+import com.graph.controller.models.enumeration.Ciudad;
 
 public class VeterinariaBuilder {
     private Veterinaria veterinaria;
@@ -41,6 +42,11 @@ public class VeterinariaBuilder {
 
     public VeterinariaBuilder direccion(String direccion) {
         this.veterinaria.setDireccion(direccion);
+        return this;
+    }
+
+    public VeterinariaBuilder ciudad(Ciudad ciudad) {
+        this.veterinaria.setCiudad(ciudad);
         return this;
     }
 

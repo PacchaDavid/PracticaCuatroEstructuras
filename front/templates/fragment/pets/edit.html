@@ -16,7 +16,13 @@
 
 {% block altura_input %}value="{{pet.altura}}"{% endblock %}
 
-{% block fechaNacimiento_input %}value="{{pet.fechaNacimiento}}"{% endblock %}
+{% block fechaNacimiento_input %}value="{{ pet.fechaNacimiento }}"{% endblock %}
+
+{% block sexoBiologico_input %}
+    {% if sexo == pet.sexoBiologico %}
+      selected
+    {% endif %}
+{% endblock %}
 
 {% block tipoMascota_input %}
     {% if tipo == pet.tipoMascota %}

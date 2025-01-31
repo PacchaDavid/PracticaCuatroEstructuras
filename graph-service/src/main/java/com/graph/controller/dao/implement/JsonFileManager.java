@@ -73,40 +73,12 @@ public class JsonFileManager {
                 graph.addEdge(j, adjacency.get("destination").getAsInt(), adjacency.get("weight").getAsFloat());
             }
         }
-        
         return graph;
     }
 
     public static LabeledGraph<Object> graphFromJson(Class<?> class1) throws Exception {
         return graphFromJson(class1,false);
     } 
-
-    /* public static void main(String[] args) throws Exception {
-        LabeledGraph<Object> labeledGraph = new LabeledGraph<>(4, Object.class);
-        Veterinaria v = new VeterinariaBuilder().veterinariaWithGenericData().build();
-
-        labeledGraph.labelVertex(1,v);
-        labeledGraph.labelVertex(2,v);
-        labeledGraph.labelVertex(3,v);
-        labeledGraph.labelVertex(4,v);
-
-        labeledGraph.addEdge(1, 2,3f);
-        labeledGraph.addEdge(1, 3,1f);
-        labeledGraph.addEdge(1, 4,2f);
-
-        labeledGraph.addEdge(2, 1,2f);
-        labeledGraph.addEdge(2, 3,2f);
-        labeledGraph.addEdge(3, 4,2f);
-
-        labeledGraph.addEdge(3, 4,2f);
-        labeledGraph.addEdge(3, 2,2f);
-        labeledGraph.addEdge(3, 1,2f);
-
-        saveFile(labeledGraph.graphToJson(), "GraphVeterinaria");
-
-        labeledGraph = graphFromJson(Veterinaria.class);
-        System.out.println(labeledGraph);
-    } */
 
     public static String readFile(String className) {
         final String fileName = jsonContainerDir + className + ".json";

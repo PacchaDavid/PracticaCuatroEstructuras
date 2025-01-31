@@ -1,6 +1,7 @@
 package com.graph.controller.models.builder;
 
 import com.graph.controller.models.Mascota;
+import com.graph.controller.models.enumeration.SexoBiologico;
 import com.graph.controller.models.enumeration.TipoMascota;
 
 public class MascotaBuilder {
@@ -16,6 +17,7 @@ public class MascotaBuilder {
 
     public MascotaBuilder mascotaWithGenericData() {
         this.mascota = new Mascota(1, "Mascota", "01/01/2021", 1.0f, 1.0f, TipoMascota.PERRO);
+        this.mascota.setSexoBiologico(SexoBiologico.MACHO);
         return this;
     }
 
@@ -31,6 +33,11 @@ public class MascotaBuilder {
 
     public MascotaBuilder fechaNacimiento(String fechaNacimiento) {
         this.mascota.setFechaNacimiento(fechaNacimiento);
+        return this;
+    }
+
+    public MascotaBuilder sexoBiologico(SexoBiologico sexoBiologico) {
+        this.mascota.setSexoBiologico(sexoBiologico);
         return this;
     }
 
