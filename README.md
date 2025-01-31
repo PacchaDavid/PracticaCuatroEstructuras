@@ -37,25 +37,25 @@ Para correr este proyecto, necesitarás tener instalados los siguientes programa
 git clone https://github.com/PacchaDavid/PracticaCuatroEstructuras
 
 <div>Navega a la carpeta del proyecto:</div>
-cd PracticaCuatroEstructuras/
+cd PracticaCuatroEstructuras/<br>
 
-<div>Instalar Dependencias (solo para bash)</div>
+<h3>Instalar Dependencias (solo para bash)</h3>
 
-Ejecuta los siguientes comandos para instalar las dependencias necesarias del backend (java):
-cd graph-service/
-mvn clean install
+<div>Ejecuta los siguientes comandos para instalar las dependencias necesarias del backend (java):</div>
+cd graph-service/<br>
+mvn clean install<br>
 
-Ejecuta los siguientes comandos para instalar las dependencias necesarias del front (python):
-cd ../front
-python3 -m venv virtual
-source virtual/bin/activate
-pip install flask requests
+<div>Ejecuta los siguientes comandos para instalar las dependencias necesarias del front (python):</div>
+cd ../front<br>
+python3 -m venv virtual<br>
+source virtual/bin/activate<br>
+pip install flask requests<br>
 
-Iniciar el Servidor
-Para iniciar el servidor de desarrollo, ejecuta (backend):
-cd ../graph-service/; mvn clean compile; mvn exec:java
+<h3>Iniciar el Servidor</h3>
+<div>Para iniciar el servidor de desarrollo, ejecuta (backend):</div>
+cd ../graph-service/; mvn clean compile; mvn exec:java<br>
 
-en otro proceso distinto puede ejecutar el front:
-python3 ../front/index.py
-
+<div>en otro proceso distinto puede ejecutar el front:</div>
+python3 ../front/index.py<br>
+<br>
 Con esto, puede empezar a utilizar la aplicación dirigiéndose a la siguiente ruta en su navegador de preferencia: localhost:5000/
